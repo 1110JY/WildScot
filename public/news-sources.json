@@ -1,0 +1,44 @@
+[
+  {
+    "id": "mountaineering-scotland",
+    "name": "Mountaineering Scotland",
+    "feedUrl": "https://www.mountaineering.scot/news/rss",
+    "sports": ["climbing", "mountaineering"],
+    "enabled": true
+  },
+  {
+    "id": "scottish-canoe-association",
+    "name": "Scottish Canoe Association",
+    "feedUrl": "https://www.canoescotland.org/news/rss",
+    "sports": ["paddling", "kayaking"],
+    "enabled": true
+  },
+  {
+    "id": "scottish-surfing-federation",
+    "name": "Scottish Surfing Federation",
+    "feedUrl": "https://www.thessf.com/feed/",
+    "sports": ["surfing"],
+    "enabled": true
+  },
+  {
+    "id": "scottish-cycling",
+    "name": "Scottish Cycling",
+    "feedUrl": "https://www.britishcycling.org.uk/news",
+    "sports": ["mtb", "cycling"],
+    "enabled": true
+  },
+  {
+    "id": "snowsport-scotland",
+    "name": "Snowsport Scotland",
+    "feedUrl": "https://snowsport.scot/feed/",
+    "sports": ["snowsports"],
+    "enabled": true
+  },
+  {
+    "id": "outdoor-access-scotland",
+    "name": "NatureScot - Outdoors",
+    "feedUrl": "https://www.nature.scot/news/rss",
+    "sports": ["wild-swimming", "paddling"],
+    "enabled": false
+  }
+]
