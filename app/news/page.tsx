@@ -1,7 +1,7 @@
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { NewsCard } from "@/components/news/news-card"
-import { getNewsArticles } from "@/lib/news/fetch-news"
+import { getNewsFeed } from "@/lib/news/fetch-news"
 import { sports } from "@/lib/data"
 
 type NewsPageProps = {
@@ -18,11 +18,13 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
   const sport = params.sport ?? "all"
   const q = params.q ?? ""
 
-  const articles = await getNewsArticles({
+  const feed = await getNewsFeed({
     sportId: sport,
     search: q,
     limit: 60,
   })
+  const articles = feed.articles
+  const liveSourceCount = feed.sources.filter((source) => source.ok).length
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -71,6 +73,7 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
                     {s.name}
                   </option>
                 ))}
+                <option value="general-outdoor">General Outdoor</option>
               </select>
             </div>
             <div className="flex items-end justify-start">
@@ -82,6 +85,15 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
               </button>
             </div>
           </form>
+
+          <div className="mb-6 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+            <span>
+              Updated {new Date(feed.generatedAt).toLocaleString("en-GB")}
+            </span>
+            <span>
+              {liveSourceCount}/{feed.sources.length} sources live
+            </span>
+          </div>
 
           {articles.length === 0 ? (
             <div className="rounded-lg border border-border bg-muted p-8 text-center text-muted-foreground">

@@ -7,6 +7,13 @@ type Props = {
   article: NewsArticle
 }
 
+function formatSportTag(value: string) {
+  if (value === "general-outdoor") {
+    return "General Outdoor"
+  }
+  return value.replace(/-/g, " ")
+}
+
 export function NewsCard({ article }: Props) {
   return (
     <div className="card-lift flex h-full flex-col justify-between rounded-lg border border-border bg-card/95 p-4 shadow-sm">
@@ -35,9 +42,9 @@ export function NewsCard({ article }: Props) {
       </div>
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        {article.sports.map((sport) => (
+        {article.sports.slice(0, 2).map((sport) => (
           <Badge key={sport} variant="secondary" className="text-xs capitalize">
-            {sport.replace(/-/g, " ")}
+            {formatSportTag(sport)}
           </Badge>
         ))}
         <Link

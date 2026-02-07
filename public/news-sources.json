@@ -1,37 +1,100 @@
 [
   {
-    "id": "mountaineering-scotland",
-    "name": "Mountaineering Scotland",
-    "feedUrl": "https://www.mountaineering.scot/feed",
-    "sports": ["climbing", "snowsports"],
-    "enabled": true
-  },
-  {
-    "id": "british-cycling-news",
-    "name": "British Cycling",
-    "feedUrl": "https://www.britishcycling.org.uk/rss/news",
-    "sports": ["mtb"],
-    "enabled": true
-  },
-  {
     "id": "scottish-surfing",
     "name": "Scottish Surfing",
-    "feedUrl": "https://scottishsurfing.scot/feed/",
-    "sports": ["surfing"],
-    "enabled": false
+    "feedUrl": "https://scottishsurfing.scot/news/",
+    "parser": "html",
+    "tier": 1,
+    "homepageUrl": "https://scottishsurfing.scot",
+    "includePatterns": ["/news/", "/article/"],
+    "excludePatterns": ["/tag/", "/category/"],
+    "enabled": true,
+    "approved": true
   },
   {
     "id": "snowsport-scotland",
     "name": "Snowsport Scotland",
-    "feedUrl": "https://www.snowsportscotland.org/news?format=rss",
-    "sports": ["snowsports"],
-    "enabled": false
+    "feedUrl": "https://www.snowsportscotland.org/news",
+    "parser": "html",
+    "tier": 1,
+    "homepageUrl": "https://www.snowsportscotland.org",
+    "includePatterns": ["/news", "/article"],
+    "excludePatterns": ["/events"],
+    "enabled": true,
+    "approved": true
   },
   {
     "id": "paddle-scotland",
     "name": "Paddle Scotland",
-    "feedUrl": "https://www.paddlescotland.org.uk/news/feed",
-    "sports": ["paddling"],
-    "enabled": false
+    "feedUrl": "https://www.paddlescotland.org.uk/news",
+    "parser": "html",
+    "tier": 1,
+    "homepageUrl": "https://www.paddlescotland.org.uk",
+    "includePatterns": ["/news", "/article"],
+    "excludePatterns": ["/events", "/course"],
+    "enabled": true,
+    "approved": true
+  },
+  {
+    "id": "mountaineering-scotland",
+    "name": "Mountaineering Scotland",
+    "feedUrl": "https://www.mountaineering.scot/feed",
+    "parser": "rss",
+    "tier": 1,
+    "homepageUrl": "https://www.mountaineering.scot",
+    "enabled": true,
+    "approved": true
+  },
+  {
+    "id": "dmbin-scotland",
+    "name": "Developing Mountain Biking in Scotland",
+    "feedUrl": "https://dmbins.com/news/",
+    "parser": "html",
+    "tier": 1,
+    "homepageUrl": "https://dmbins.com",
+    "includePatterns": ["/news/"],
+    "excludePatterns": ["/jobs/", "/events/"],
+    "enabled": true,
+    "approved": true
+  },
+  {
+    "id": "outdoor-swimming-society",
+    "name": "Outdoor Swimming Society",
+    "feedUrl": "https://www.outdoorswimmingsociety.com/feed/",
+    "parser": "rss",
+    "tier": 2,
+    "homepageUrl": "https://www.outdoorswimmingsociety.com",
+    "enabled": true,
+    "approved": true
+  },
+  {
+    "id": "singletrack-magazine",
+    "name": "Singletrack Magazine",
+    "feedUrl": "https://singletrackworld.com/feed/",
+    "parser": "rss",
+    "tier": 2,
+    "homepageUrl": "https://singletrackworld.com",
+    "enabled": true,
+    "approved": true
+  },
+  {
+    "id": "carve-magazine",
+    "name": "Carve Magazine",
+    "feedUrl": "https://www.carvemag.com/feed/",
+    "parser": "rss",
+    "tier": 2,
+    "homepageUrl": "https://www.carvemag.com",
+    "enabled": true,
+    "approved": true
+  },
+  {
+    "id": "surfers-against-sewage",
+    "name": "Surfers Against Sewage",
+    "feedUrl": "https://www.sas.org.uk/feed/",
+    "parser": "rss",
+    "tier": 2,
+    "homepageUrl": "https://www.sas.org.uk",
+    "enabled": true,
+    "approved": true
   }
 ]
