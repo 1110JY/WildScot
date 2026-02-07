@@ -17,7 +17,7 @@ const steps = [
   },
   {
     icon: Zap,
-    title: "Just go",
+    title: "Go for it",
     description:
       "Book a taster, join a course, or rock up to an open day. We link you straight to the organisers.",
     accent: "bg-[hsl(200,35%,38%)]",

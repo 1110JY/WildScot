@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   title: "WildScot - Discover Adventure Sports in Scotland",
   description:
     "Find, understand, and access niche and adventure sports across Scotland. Browse clubs, courses, and events for surfing, climbing, MTB, wild swimming, and more.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 }
 
 export const viewport: Viewport = {
