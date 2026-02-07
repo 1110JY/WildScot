@@ -10,6 +10,7 @@ type FetchOptions = {
 }
 
 const CACHE_TTL_MS = 15 * 60 * 1000 // 15 minutes
+const FETCH_TIMEOUT_MS = 8000
 
 type CacheEntry = {
   fetchedAt: number
@@ -93,18 +94,40 @@ async function loadSources(): Promise<NewsSource[]> {
 }
 
 async function fetchSourceFeed(source: NewsSource): Promise<NewsArticle[]> {
-  const res = await fetch(source.feedUrl, { next: { revalidate: CACHE_TTL_MS / 1000 } })
-  const xml = await res.text()
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS)
 
-  const isAtom = /<feed[\s\S]*xmlns=['"]?http:\/\/www\.w3\.org\/2005\/Atom/.test(xml)
-  const parsed = isAtom ? parseAtom(xml) : parseRss(xml)
+  try {
+    const res = await fetch(source.feedUrl, {
+      signal: controller.signal,
+      next: { revalidate: CACHE_TTL_MS / 1000 },
+    })
 
-  return parsed.map((item) => ({
-    ...item,
-    source: source.name,
-    sourceId: source.id,
-    sports: source.sports,
-  }))
+    if (!res.ok) {
+      return []
+    }
+
+    const xml = await res.text()
+    if (!xml.includes("<rss") && !xml.includes("<feed")) {
+      return []
+    }
+
+    const isAtom = /<feed[\s\S]*xmlns=['"]?http:\/\/www\.w3\.org\/2005\/Atom/.test(xml)
+    const parsed = isAtom ? parseAtom(xml) : parseRss(xml)
+
+    return parsed
+      .filter((item) => Boolean(item.link) && Boolean(item.title))
+      .map((item) => ({
+        ...item,
+        source: source.name,
+        sourceId: source.id,
+        sports: source.sports,
+      }))
+  } catch {
+    return []
+  } finally {
+    clearTimeout(timeout)
+  }
 }
 
 function dedupe(articles: NewsArticle[]) {
@@ -122,16 +145,7 @@ function dedupe(articles: NewsArticle[]) {
 async function fetchAllArticles(): Promise<NewsArticle[]> {
   const sources = await loadSources()
 
-  const results = await Promise.allSettled(
-    sources.map(async (source) => {
-      try {
-        return await fetchSourceFeed(source)
-      } catch (error) {
-        console.error(`Failed to fetch feed for ${source.id}`, error)
-        return [] as NewsArticle[]
-      }
-    })
-  )
+  const results = await Promise.allSettled(sources.map((source) => fetchSourceFeed(source)))
 
   const articles = results.flatMap((result) =>
     result.status === "fulfilled" ? result.value : []
