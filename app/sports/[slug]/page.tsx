@@ -28,6 +28,12 @@ function formatDate(date: string) {
   })
 }
 
+function formatEventDate(date?: string, endDate?: string) {
+  if (!date) return "Dates on organiser website"
+  if (!endDate) return formatDate(date)
+  return `${formatDate(date)} - ${formatDate(endDate)}`
+}
+
 const typeLabels: Record<string, string> = {
   taster: "Taster Session",
   course: "Course",
@@ -140,6 +146,12 @@ export default async function SportDetailPage({
                                 Accredited
                               </span>
                             )}
+                            {club.verified && (
+                              <span className="flex items-center gap-1 text-xs text-primary">
+                                <ShieldCheck className="h-3.5 w-3.5" />
+                                Verified
+                              </span>
+                            )}
                             {club.beginnerSuitable && (
                               <Badge
                                 variant="secondary"
@@ -189,6 +201,11 @@ export default async function SportDetailPage({
                           <Badge variant="secondary" className="text-xs">
                             {typeLabels[event.type]}
                           </Badge>
+                          {event.verified && (
+                            <Badge variant="outline" className="text-xs text-primary border-primary/40">
+                              Verified source
+                            </Badge>
+                          )}
                           {event.cost === "free" && (
                             <Badge className="bg-primary/10 text-primary hover:bg-primary/20 text-xs">
                               Free
@@ -198,15 +215,15 @@ export default async function SportDetailPage({
                         <h3 className="mt-2 text-sm font-bold text-foreground">
                           {event.title}
                         </h3>
-                        <p className="mt-1 text-xs text-muted-foreground">
-                          {event.description}
-                        </p>
+                        {event.description && (
+                          <p className="mt-1 text-xs text-muted-foreground">
+                            {event.description}
+                          </p>
+                        )}
                         <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
                           <span className="flex items-center gap-1">
                             <Calendar className="h-3 w-3" />
-                            {formatDate(event.date)}
-                            {event.endDate &&
-                              ` - ${formatDate(event.endDate)}`}
+                            {formatEventDate(event.date, event.endDate)}
                           </span>
                           <span className="flex items-center gap-1">
                             <MapPin className="h-3 w-3" />
@@ -214,17 +231,15 @@ export default async function SportDetailPage({
                           </span>
                           {event.price && <span>{event.price}</span>}
                         </div>
-                        {event.bookingUrl && (
-                          <a
-                            href={event.bookingUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
-                          >
-                            Book with {event.organiser}
-                            <ExternalLink className="h-3 w-3" />
-                          </a>
-                        )}
+                        <a
+                          href={event.bookingUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
+                        >
+                          Book with {event.organiser}
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
                       </div>
                     ))}
                   </div>

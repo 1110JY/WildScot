@@ -35,7 +35,7 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
             <p className="text-label text-card/80">Stay current</p>
             <h1 className="text-section text-card mt-3">Latest news across Scottish adventure sports</h1>
             <p className="text-body-lg mt-3 max-w-3xl text-card/80">
-              Pulling updates from governing bodies, accredited clubs, and trusted outdoor organisations. We link out to every source so credit stays with the publisher.
+              Pulling updates from governing bodies, verified providers, and trusted outdoor organisations. We link out to every source so credit stays with the publisher.
             </p>
           </div>
           <div className="absolute bottom-0 left-0 right-0 h-12 bg-background" style={{ clipPath: "polygon(0 100%, 100% 100%, 100% 0)" }} />

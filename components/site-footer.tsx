@@ -18,10 +18,10 @@ const footerLinks = {
     { name: "Paddling", href: "/sports/paddling" },
   ],
   about: [
-    { name: "About WildScot", href: "#" },
-    { name: "Our Partners", href: "#" },
-    { name: "Safety Information", href: "#" },
-    { name: "Contact Us", href: "#" },
+    { name: "Safety Guidance", href: "https://www.mountaineering.scot/safety-and-skills" },
+    { name: "Mountain Forecasts", href: "https://www.metoffice.gov.uk/weather/specialist-forecasts/mountain" },
+    { name: "Avalanche Service", href: "https://www.sais.gov.uk" },
+    { name: "News Updates", href: "/news" },
   ],
 }
 
@@ -86,12 +86,14 @@ export function SiteFooter() {
             <ul className="flex flex-col gap-2">
               {footerLinks.about.map((link) => (
                 <li key={link.name}>
-                  <Link
+                  <a
                     href={link.href}
+                    target={link.href.startsWith("http") ? "_blank" : undefined}
+                    rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     className="text-sm text-card/70 transition-colors hover:text-card"
                   >
                     {link.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

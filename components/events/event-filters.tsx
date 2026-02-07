@@ -33,6 +33,12 @@ function formatDate(date: string) {
   })
 }
 
+function formatEventDate(date?: string, endDate?: string) {
+  if (!date) return "Dates on organiser website"
+  if (!endDate) return formatDate(date)
+  return `${formatDate(date)} - ${formatDate(endDate)}`
+}
+
 const typeLabels: Record<string, string> = {
   taster: "Taster Session",
   course: "Course",
@@ -63,7 +69,11 @@ export function EventFilters() {
         if (costFilter !== "all" && event.cost !== costFilter) return false
         return true
       })
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .sort((a, b) => {
+        const aTime = a.date ? new Date(a.date).getTime() : Number.MAX_SAFE_INTEGER
+        const bTime = b.date ? new Date(b.date).getTime() : Number.MAX_SAFE_INTEGER
+        return aTime - bTime
+      })
   }, [sportFilter, regionFilter, typeFilter, abilityFilter, costFilter])
 
   const hasFilters =
@@ -183,7 +193,7 @@ export function EventFilters() {
         <span className="inline-flex h-6 items-center rounded-full bg-muted px-3 font-semibold text-foreground/80">
           {filtered.length} {filtered.length === 1 ? "event" : "events"}
         </span>
-        <span>scheduled</span>
+        <span>listed</span>
       </div>
 
       {filtered.length === 0 ? (
@@ -216,6 +226,11 @@ export function EventFilters() {
                     <Badge variant="outline" className="text-xs">
                       {typeLabels[event.type]}
                     </Badge>
+                    {event.verified && (
+                      <Badge variant="outline" className="text-xs text-primary border-primary/40">
+                        Verified source
+                      </Badge>
+                    )}
                     {event.cost === "free" && (
                       <Badge className="bg-primary/10 text-primary hover:bg-primary/20 text-xs">
                         Free
@@ -229,15 +244,16 @@ export function EventFilters() {
                   <h3 className="font-display text-base font-bold text-foreground">
                     {event.title}
                   </h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {event.description}
-                  </p>
+                  {event.description && (
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {event.description}
+                    </p>
+                  )}
 
                   <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1">
                       <Calendar className="h-3.5 w-3.5" />
-                      {formatDate(event.date)}
-                      {event.endDate && ` - ${formatDate(event.endDate)}`}
+                      {formatEventDate(event.date, event.endDate)}
                     </span>
                     <span className="flex items-center gap-1">
                       <MapPin className="h-3.5 w-3.5" />
@@ -256,20 +272,18 @@ export function EventFilters() {
                   </p>
                 </div>
 
-                {event.bookingUrl && (
-                  <div className="shrink-0">
-                    <Button variant="outline" size="sm" asChild>
-                      <a
-                        href={event.bookingUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Book now
-                        <ExternalLink className="ml-1 h-3 w-3" />
-                      </a>
-                    </Button>
-                  </div>
-                )}
+                <div className="shrink-0">
+                  <Button variant="outline" size="sm" asChild>
+                    <a
+                      href={event.bookingUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Book now
+                      <ExternalLink className="ml-1 h-3 w-3" />
+                    </a>
+                  </Button>
+                </div>
               </div>
             )
           })}

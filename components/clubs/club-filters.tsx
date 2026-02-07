@@ -204,6 +204,12 @@ export function ClubFilters() {
                     Accredited
                   </span>
                 )}
+                {club.verified && (
+                  <span className="flex items-center gap-1 text-xs text-primary">
+                    <ShieldCheck className="h-3.5 w-3.5" />
+                    Verified
+                  </span>
+                )}
               </div>
 
               <h3 className="font-display text-base font-bold text-foreground transition-colors group-hover:text-primary">

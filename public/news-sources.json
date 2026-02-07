@@ -2,43 +2,36 @@
   {
     "id": "mountaineering-scotland",
     "name": "Mountaineering Scotland",
-    "feedUrl": "https://www.mountaineering.scot/news/rss",
-    "sports": ["climbing", "mountaineering"],
+    "feedUrl": "https://www.mountaineering.scot/feed",
+    "sports": ["climbing", "snowsports"],
     "enabled": true
   },
   {
-    "id": "scottish-canoe-association",
-    "name": "Scottish Canoe Association",
-    "feedUrl": "https://www.canoescotland.org/news/rss",
-    "sports": ["paddling", "kayaking"],
+    "id": "british-cycling-news",
+    "name": "British Cycling",
+    "feedUrl": "https://www.britishcycling.org.uk/rss/news",
+    "sports": ["mtb"],
     "enabled": true
   },
   {
-    "id": "scottish-surfing-federation",
-    "name": "Scottish Surfing Federation",
-    "feedUrl": "https://www.thessf.com/feed/",
+    "id": "scottish-surfing",
+    "name": "Scottish Surfing",
+    "feedUrl": "https://scottishsurfing.scot/feed/",
     "sports": ["surfing"],
-    "enabled": true
-  },
-  {
-    "id": "scottish-cycling",
-    "name": "Scottish Cycling",
-    "feedUrl": "https://www.britishcycling.org.uk/news",
-    "sports": ["mtb", "cycling"],
-    "enabled": true
+    "enabled": false
   },
   {
     "id": "snowsport-scotland",
     "name": "Snowsport Scotland",
-    "feedUrl": "https://snowsport.scot/feed/",
+    "feedUrl": "https://www.snowsportscotland.org/news?format=rss",
     "sports": ["snowsports"],
-    "enabled": true
+    "enabled": false
   },
   {
-    "id": "outdoor-access-scotland",
-    "name": "NatureScot - Outdoors",
-    "feedUrl": "https://www.nature.scot/news/rss",
-    "sports": ["wild-swimming", "paddling"],
+    "id": "paddle-scotland",
+    "name": "Paddle Scotland",
+    "feedUrl": "https://www.paddlescotland.org.uk/news/feed",
+    "sports": ["paddling"],
     "enabled": false
   }
 ]

@@ -27,7 +27,7 @@ export default function EventsPage() {
               Taster sessions, courses, and open days across Scotland.
             </h1>
             <p className="text-body-lg mt-5 max-w-2xl text-card/80">
-              Pick your sport, set your ability, and find a date. Every event links straight to the organiser to keep it official.
+              Pick your sport, set your ability, and follow official organiser links. Dates and booking windows always come from the organiser.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3 text-card/80 text-sm uppercase tracking-[0.18em]">
               <span className="rounded-full bg-card/10 px-4 py-2">This month</span>

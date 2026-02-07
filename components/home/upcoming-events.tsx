@@ -12,6 +12,12 @@ function formatDate(date: string) {
   })
 }
 
+function formatEventDate(date?: string, endDate?: string) {
+  if (!date) return "Dates on organiser website"
+  if (!endDate) return formatDate(date)
+  return `${formatDate(date)} - ${formatDate(endDate)}`
+}
+
 const typeLabels: Record<string, string> = {
   taster: "Taster Session",
   course: "Course",
@@ -20,7 +26,17 @@ const typeLabels: Record<string, string> = {
 }
 
 export function UpcomingEvents() {
-  const upcoming = events.slice(0, 4)
+  const upcoming = [...events]
+    .sort((a, b) => {
+      const aTime = a.date ? new Date(a.date).getTime() : Number.MAX_SAFE_INTEGER
+      const bTime = b.date ? new Date(b.date).getTime() : Number.MAX_SAFE_INTEGER
+      return aTime - bTime
+    })
+    .slice(0, 4)
+
+  if (upcoming.length === 0) {
+    return null
+  }
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 lg:px-8 lg:py-24">
@@ -63,6 +79,11 @@ export function UpcomingEvents() {
                 >
                   {typeLabels[event.type]}
                 </Badge>
+                {event.verified && (
+                  <Badge variant="outline" className="text-xs text-primary border-primary/40">
+                    Verified
+                  </Badge>
+                )}
               </div>
 
               <h3 className="font-semibold text-base text-foreground group-hover:text-primary">
@@ -72,8 +93,7 @@ export function UpcomingEvents() {
               <div className="mt-auto flex flex-col gap-1 pt-4 text-xs text-muted-foreground">
                 <span className="flex items-center gap-1.5">
                   <Calendar className="h-3.5 w-3.5" />
-                  {formatDate(event.date)}
-                  {event.endDate && ` - ${formatDate(event.endDate)}`}
+                  {formatEventDate(event.date, event.endDate)}
                 </span>
                 <span className="flex items-center gap-1.5">
                   <MapPin className="h-3.5 w-3.5" />
